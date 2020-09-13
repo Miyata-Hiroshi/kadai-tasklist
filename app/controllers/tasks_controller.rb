@@ -3,13 +3,11 @@ class TasksController < ApplicationController
   before_action :correct_user, only: [:destroy]
   
   def index
-   @tasks = Task.page(params[:page]).per(3)
+   @tasks = current_user.tasks.order(id: :desc).page(params[:page])
   end
-  
   def show
     @task = Task.find(params[:id])
   end
-  
   def new
     @task = Task.new
   end
@@ -22,7 +20,7 @@ class TasksController < ApplicationController
     else
       @tasks = current_user.tasks.order(id: :desc).page(params[:page])
       flash.now[:danger] = 'タスクの投稿に失敗しました。'
-      render 'toppages/index'
+      render :new
     end
   end
   
