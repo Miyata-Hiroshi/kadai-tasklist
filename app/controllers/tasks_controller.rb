@@ -26,9 +26,6 @@ class TasksController < ApplicationController
   
   def edit
     @task = Task.find(params[:id])
-    unless @task
-    redirect_to root_url
-    end
   end
 
   
